@@ -1,0 +1,1480 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"55 heater.c
+[; ;heater.c: 55: static EnumHeater_State_t g_Heater_state_t = HEATER_OFF_STATE;
+[c E1020 0 1 2 .. ]
+[n E1020 . HEATER_OFF_STATE HEATER_ON_STATE HEATER_SET_TEMERATURE  ]
+"99
+[; ;heater.c: 99: static EnumButton_State_t Check_ON_Push_Button(uint8 a_u8Port , uint8 a_u8Pin ,
+[c E1025 0 1 2 3 .. ]
+[n E1025 . PUSH_BUTTON_IS_PRESSED PUSH_BUTTON_IS_NOT_RELEASED PUSH_BUTTON_DEBOUNCING PUSH_BUTTON_IS_NOT_PRESSED  ]
+"125 ./GPIO.h
+[; ;./GPIO.h: 125: extern uint8 GPIO_ReadFromPin(uint8 a_u8port , uint8 a_u8pin);
+[v _GPIO_ReadFromPin `(uc ~T0 @X0 0 ef2`uc`uc ]
+"155 heater.c
+[; ;heater.c: 155:     SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP , SEVEN_SEGMENT_DISABLE_CHIP ,
+[c E933 0 1 .. ]
+[n E933 . SEVEN_SEGMENT_ENABLE_CHIP SEVEN_SEGMENT_DISABLE_CHIP  ]
+"46 ./SevenSegment_unportablePart.h
+[; ;./SevenSegment_unportablePart.h: 46: extern void SevenSegment_SelectChip(EnumSevenSegment_Status_t a_Chip1 ,
+[v _SevenSegment_SelectChip `(v ~T0 @X0 0 ef4`E933`E933`E933`E933 ]
+"158 heater.c
+[; ;heater.c: 158:     GPIO_WriteOnPin(2u , 2u , 0u);
+[c E978 0 1 .. ]
+[n E978 . GPIO_CORRECT_SET GPIO_UNCORRECT_SET  ]
+"97 ./GPIO.h
+[; ;./GPIO.h: 97: extern EnumGPIO_Status_t GPIO_WriteOnPin(uint8 a_u8port , uint8 a_u8pin , uint8 a_u8value);
+[v _GPIO_WriteOnPin `(E978 ~T0 @X0 0 ef3`uc`uc`uc ]
+"38 ./EEPROM24c04.h
+[; ;./EEPROM24c04.h: 38: extern void EEPROM_Initialization(void);
+[v _EEPROM_Initialization `(v ~T0 @X0 0 ef ]
+"48 ./SevenSegment.h
+[; ;./SevenSegment.h: 48: extern void SevenSegment_Initialization(void);
+[v _SevenSegment_Initialization `(v ~T0 @X0 0 ef ]
+"205 ./GPIO.h
+[; ;./GPIO.h: 205: extern void GPIO_Enable_Pull_Up_On_PortB(void);
+[v _GPIO_Enable_Pull_Up_On_PortB `(v ~T0 @X0 0 ef ]
+"68
+[; ;./GPIO.h: 68: extern EnumGPIO_Status_t GPIO_SetPinDirection(uint8 a_u8port , uint8 a_u8pin , uint8 a_u8direction);
+[v _GPIO_SetPinDirection `(E978 ~T0 @X0 0 ef3`uc`uc`uc ]
+"201 heater.c
+[; ;heater.c: 201:     ADC_Initialization(ADC_CHANNEL_2 , ADC_V_REF_DEFAULT_VALUE , ADC_V_REF_DEFAULT_VALUE);
+[c E858 0 1 2 3 4 5 6 7 .. ]
+[n E858 . ADC_CHANNEL_0 ADC_CHANNEL_1 ADC_CHANNEL_2 ADC_CHANNEL_3 ADC_CHANNEL_4 ADC_CHANNEL_5 ADC_CHANNEL_6 ADC_CHANNEL_7  ]
+[c E881 0 1 .. ]
+[n E881 . ADC_V_REF_INPUT_PIN ADC_V_REF_DEFAULT_VALUE  ]
+"81 ./ADC.h
+[; ;./ADC.h: 81: extern void ADC_Initialization(EnumADC_channels_t a_ADC_channel_t ,
+[v _ADC_Initialization `(v ~T0 @X0 0 ef3`E858`E881`E881 ]
+"202 heater.c
+[; ;heater.c: 202:     ADC_Select_prescaler(ADC_PRESCALER_16);
+[c E868 0 1 2 3 4 5 6 .. ]
+[n E868 . ADC_PRESCALER_2 ADC_PRESCALER_8 ADC_PRESCALER_32 ADC_OSCILLATOR_CLOCK ADC_PRESCALER_4 ADC_PRESCALER_16 ADC_PRESCALER_64  ]
+"98 ./ADC.h
+[; ;./ADC.h: 98: extern void ADC_Select_prescaler(EnumADC_prescaler_t a_ADC_prescaler_t);
+[v _ADC_Select_prescaler `(v ~T0 @X0 0 ef1`E868 ]
+"265 ./interrupt.h
+[; ;./interrupt.h: 265: extern void External_interrupt_select_falling_edge(void);
+[v _External_interrupt_select_falling_edge `(v ~T0 @X0 0 ef ]
+"226
+[; ;./interrupt.h: 226: extern void External_interrupt_enable(void);
+[v _External_interrupt_enable `(v ~T0 @X0 0 ef ]
+"249 heater.c
+[; ;heater.c: 249:                 SevenSegment_Display(g_u8Heater_real_time_temperature / 10 ,
+[c E925 0 1 .. ]
+[n E925 . SEVEN_SEGMENT_DISPLAY_DOT SEVEN_SEGMENT_NOT_DISPLAY_DOT  ]
+"62 ./SevenSegment.h
+[; ;./SevenSegment.h: 62: extern void SevenSegment_Display(uint8 a_u8displayNumber ,
+[v _SevenSegment_Display `(v ~T0 @X0 0 ef2`uc`E925 ]
+"65 ./EEPROM24c04.h
+[; ;./EEPROM24c04.h: 65: extern uint8 EEPROM_Read_Byte(uint16 a_u16Location);
+[v _EEPROM_Read_Byte `(uc ~T0 @X0 0 ef1`us ]
+"33 ./CPU_sleep.h
+[; ;./CPU_sleep.h: 33: extern void CPU_sleep(void);
+[v _CPU_sleep `(v ~T0 @X0 0 ef ]
+"52 ./EEPROM24c04.h
+[; ;./EEPROM24c04.h: 52: extern void EEPROM_Save_Byte(uint16 a_u16Location , uint8 a_u8Data);
+[v _EEPROM_Save_Byte `(v ~T0 @X0 0 ef2`us`uc ]
+"124 ./ADC.h
+[; ;./ADC.h: 124: extern void ADC_Start_conversion(void);
+[v _ADC_Start_conversion `(v ~T0 @X0 0 ef ]
+"111
+[; ;./ADC.h: 111: extern uint16 ADC_Read_value(void);
+[v _ADC_Read_value `(us ~T0 @X0 0 ef ]
+"54 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"61
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 61: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"68
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 68: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"75
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 75: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"161
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 161: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"168
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 168: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"218
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 218: __asm("PORTB equ 06h");
+[; <" PORTB equ 06h ;# ">
+"280
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 280: __asm("PORTC equ 07h");
+[; <" PORTC equ 07h ;# ">
+"342
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 342: __asm("PORTD equ 08h");
+[; <" PORTD equ 08h ;# ">
+"404
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 404: __asm("PORTE equ 09h");
+[; <" PORTE equ 09h ;# ">
+"436
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 436: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"456
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 456: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"534
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 534: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"596
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 596: __asm("PIR2 equ 0Dh");
+[; <" PIR2 equ 0Dh ;# ">
+"636
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 636: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"643
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 643: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"650
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 650: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"657
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 657: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"732
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 732: __asm("TMR2 equ 011h");
+[; <" TMR2 equ 011h ;# ">
+"739
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 739: __asm("T2CON equ 012h");
+[; <" T2CON equ 012h ;# ">
+"810
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 810: __asm("SSPBUF equ 013h");
+[; <" SSPBUF equ 013h ;# ">
+"817
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 817: __asm("SSPCON equ 014h");
+[; <" SSPCON equ 014h ;# ">
+"887
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 887: __asm("CCPR1 equ 015h");
+[; <" CCPR1 equ 015h ;# ">
+"894
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 894: __asm("CCPR1L equ 015h");
+[; <" CCPR1L equ 015h ;# ">
+"901
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 901: __asm("CCPR1H equ 016h");
+[; <" CCPR1H equ 016h ;# ">
+"908
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 908: __asm("CCP1CON equ 017h");
+[; <" CCP1CON equ 017h ;# ">
+"966
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 966: __asm("RCSTA equ 018h");
+[; <" RCSTA equ 018h ;# ">
+"1061
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1061: __asm("TXREG equ 019h");
+[; <" TXREG equ 019h ;# ">
+"1068
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1068: __asm("RCREG equ 01Ah");
+[; <" RCREG equ 01Ah ;# ">
+"1075
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1075: __asm("CCPR2 equ 01Bh");
+[; <" CCPR2 equ 01Bh ;# ">
+"1082
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1082: __asm("CCPR2L equ 01Bh");
+[; <" CCPR2L equ 01Bh ;# ">
+"1089
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1089: __asm("CCPR2H equ 01Ch");
+[; <" CCPR2H equ 01Ch ;# ">
+"1096
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1096: __asm("CCP2CON equ 01Dh");
+[; <" CCP2CON equ 01Dh ;# ">
+"1154
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1154: __asm("ADRESH equ 01Eh");
+[; <" ADRESH equ 01Eh ;# ">
+"1161
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1161: __asm("ADCON0 equ 01Fh");
+[; <" ADCON0 equ 01Fh ;# ">
+"1257
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1257: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"1327
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1327: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"1377
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1377: __asm("TRISB equ 086h");
+[; <" TRISB equ 086h ;# ">
+"1439
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1439: __asm("TRISC equ 087h");
+[; <" TRISC equ 087h ;# ">
+"1501
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1501: __asm("TRISD equ 088h");
+[; <" TRISD equ 088h ;# ">
+"1563
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1563: __asm("TRISE equ 089h");
+[; <" TRISE equ 089h ;# ">
+"1620
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1620: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"1682
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1682: __asm("PIE2 equ 08Dh");
+[; <" PIE2 equ 08Dh ;# ">
+"1722
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1722: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"1756
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1756: __asm("SSPCON2 equ 091h");
+[; <" SSPCON2 equ 091h ;# ">
+"1818
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1818: __asm("PR2 equ 092h");
+[; <" PR2 equ 092h ;# ">
+"1825
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1825: __asm("SSPADD equ 093h");
+[; <" SSPADD equ 093h ;# ">
+"1832
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1832: __asm("SSPSTAT equ 094h");
+[; <" SSPSTAT equ 094h ;# ">
+"2001
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2001: __asm("TXSTA equ 098h");
+[; <" TXSTA equ 098h ;# ">
+"2082
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2082: __asm("SPBRG equ 099h");
+[; <" SPBRG equ 099h ;# ">
+"2089
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2089: __asm("CMCON equ 09Ch");
+[; <" CMCON equ 09Ch ;# ">
+"2159
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2159: __asm("CVRCON equ 09Dh");
+[; <" CVRCON equ 09Dh ;# ">
+"2224
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2224: __asm("ADRESL equ 09Eh");
+[; <" ADRESL equ 09Eh ;# ">
+"2231
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2231: __asm("ADCON1 equ 09Fh");
+[; <" ADCON1 equ 09Fh ;# ">
+"2290
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2290: __asm("EEDATA equ 010Ch");
+[; <" EEDATA equ 010Ch ;# ">
+"2297
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2297: __asm("EEADR equ 010Dh");
+[; <" EEADR equ 010Dh ;# ">
+"2304
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2304: __asm("EEDATH equ 010Eh");
+[; <" EEDATH equ 010Eh ;# ">
+"2311
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2311: __asm("EEADRH equ 010Fh");
+[; <" EEADRH equ 010Fh ;# ">
+"2318
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2318: __asm("EECON1 equ 018Ch");
+[; <" EECON1 equ 018Ch ;# ">
+"2363
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
+[; <" EECON2 equ 018Dh ;# ">
+"32 ./general_bitConfig.h
+[p x FOSC = XT ]
+"33
+[p x WDTE = OFF ]
+"34
+[p x PWRTE = ON ]
+"35
+[p x BOREN = ON ]
+"36
+[p x LVP = OFF ]
+"37
+[p x CPD = OFF ]
+"38
+[p x WRT = OFF ]
+"39
+[p x CP = OFF ]
+"55 heater.c
+[; ;heater.c: 55: static EnumHeater_State_t g_Heater_state_t = HEATER_OFF_STATE;
+[v _g_Heater_state_t `E1020 ~T0 @X0 1 s ]
+[i _g_Heater_state_t
+. `E1020 0
+]
+"57
+[; ;heater.c: 57: static uint8 g_u8Heater_desired_temperature = 60;
+[v _g_u8Heater_desired_temperature `uc ~T0 @X0 1 s ]
+[i _g_u8Heater_desired_temperature
+-> -> 60 `i `uc
+]
+"59
+[; ;heater.c: 59: static uint8 g_u8Heater_real_time_temperature = 60;
+[v _g_u8Heater_real_time_temperature `uc ~T0 @X0 1 s ]
+[i _g_u8Heater_real_time_temperature
+-> -> 60 `i `uc
+]
+"61
+[; ;heater.c: 61: static uint8 g_u8Sync_flag = 0;
+[v _g_u8Sync_flag `uc ~T0 @X0 1 s ]
+[i _g_u8Sync_flag
+-> -> 0 `i `uc
+]
+"63
+[; ;heater.c: 63: static uint8 g_u8calculate_temperature_flag = 0;
+[v _g_u8calculate_temperature_flag `uc ~T0 @X0 1 s ]
+[i _g_u8calculate_temperature_flag
+-> -> 0 `i `uc
+]
+"65
+[; ;heater.c: 65: static uint16 g_u16Sum_of_ten_readings = 0;
+[v _g_u16Sum_of_ten_readings `us ~T0 @X0 1 s ]
+[i _g_u16Sum_of_ten_readings
+-> -> 0 `i `us
+]
+"67
+[; ;heater.c: 67: static uint8 g_u8Reading_counter = 0;
+[v _g_u8Reading_counter `uc ~T0 @X0 1 s ]
+[i _g_u8Reading_counter
+-> -> 0 `i `uc
+]
+"69
+[; ;heater.c: 69: static uint8 g_u8Reading_deleted_element = 0;
+[v _g_u8Reading_deleted_element `uc ~T0 @X0 1 s ]
+[i _g_u8Reading_deleted_element
+-> -> 0 `i `uc
+]
+"71
+[; ;heater.c: 71: static uint8 g_u8Reading_arr[10] = {0};
+[v _g_u8Reading_arr `uc ~T0 @X0 -> 10 `i s ]
+[i _g_u8Reading_arr
+:U ..
+-> -> 0 `i `uc
+..
+]
+"73
+[; ;heater.c: 73: static uint8 g_u8Display_blank_counter = 0;
+[v _g_u8Display_blank_counter `uc ~T0 @X0 1 s ]
+[i _g_u8Display_blank_counter
+-> -> 0 `i `uc
+]
+"75
+[; ;heater.c: 75: static uint8 g_u8End_setup_state = 0;
+[v _g_u8End_setup_state `uc ~T0 @X0 1 s ]
+[i _g_u8End_setup_state
+-> -> 0 `i `uc
+]
+"77
+[; ;heater.c: 77: static uint8 g_u8Led_blank_counter = 0;
+[v _g_u8Led_blank_counter `uc ~T0 @X0 1 s ]
+[i _g_u8Led_blank_counter
+-> -> 0 `i `uc
+]
+"99
+[; ;heater.c: 99: static EnumButton_State_t Check_ON_Push_Button(uint8 a_u8Port , uint8 a_u8Pin ,
+[v _Check_ON_Push_Button `(E1025 ~T0 @X0 1 sf3`uc`uc`*E1025 ]
+"101
+[; ;heater.c: 101: {
+{
+[e :U _Check_ON_Push_Button ]
+"99
+[; ;heater.c: 99: static EnumButton_State_t Check_ON_Push_Button(uint8 a_u8Port , uint8 a_u8Pin ,
+[v _a_u8Port `uc ~T0 @X0 1 r1 ]
+[v _a_u8Pin `uc ~T0 @X0 1 r2 ]
+"100
+[; ;heater.c: 100:                                                EnumButton_State_t * retVal_t)
+[v _retVal_t `*E1025 ~T0 @X0 1 r3 ]
+"101
+[; ;heater.c: 101: {
+[f ]
+"103
+[; ;heater.c: 103:     if(GPIO_ReadFromPin(a_u8Port , a_u8Pin) == PUSH_BUTTON_IS_PRESSED)
+[e $ ! == -> ( _GPIO_ReadFromPin (2 , _a_u8Port _a_u8Pin `i -> . `E1025 0 `i 97  ]
+"104
+[; ;heater.c: 104:     {
+{
+"106
+[; ;heater.c: 106:         switch(*retVal_t)
+[e $U 99  ]
+"107
+[; ;heater.c: 107:         {
+{
+"108
+[; ;heater.c: 108:             case PUSH_BUTTON_IS_NOT_PRESSED:
+[e :U 100 ]
+"109
+[; ;heater.c: 109:                 *retVal_t = PUSH_BUTTON_DEBOUNCING;
+[e = *U _retVal_t . `E1025 2 ]
+"110
+[; ;heater.c: 110:                 break;
+[e $U 98  ]
+"111
+[; ;heater.c: 111:             case PUSH_BUTTON_DEBOUNCING:
+[e :U 101 ]
+"112
+[; ;heater.c: 112:                 *retVal_t = PUSH_BUTTON_IS_NOT_RELEASED;
+[e = *U _retVal_t . `E1025 1 ]
+"113
+[; ;heater.c: 113:                 break;
+[e $U 98  ]
+"114
+[; ;heater.c: 114:             case PUSH_BUTTON_IS_NOT_RELEASED:
+[e :U 102 ]
+"116
+[; ;heater.c: 116:                 break;
+[e $U 98  ]
+"117
+[; ;heater.c: 117:             default:
+[e :U 103 ]
+"119
+[; ;heater.c: 119:                 break;
+[e $U 98  ]
+"120
+[; ;heater.c: 120:         }
+}
+[e $U 98  ]
+[e :U 99 ]
+[e [\ -> *U _retVal_t `ui , $ -> . `E1025 3 `ui 100
+ , $ -> . `E1025 2 `ui 101
+ , $ -> . `E1025 1 `ui 102
+ 103 ]
+[e :U 98 ]
+"121
+[; ;heater.c: 121:     }
+}
+[e $U 104  ]
+"122
+[; ;heater.c: 122:     else
+[e :U 97 ]
+"123
+[; ;heater.c: 123:     {
+{
+"125
+[; ;heater.c: 125:         if(*retVal_t == PUSH_BUTTON_IS_NOT_RELEASED)
+[e $ ! == -> *U _retVal_t `ui -> . `E1025 1 `ui 105  ]
+"126
+[; ;heater.c: 126:         {
+{
+"128
+[; ;heater.c: 128:             *retVal_t = PUSH_BUTTON_IS_PRESSED;
+[e = *U _retVal_t . `E1025 0 ]
+"129
+[; ;heater.c: 129:         }
+}
+[e $U 106  ]
+"130
+[; ;heater.c: 130:         else
+[e :U 105 ]
+"131
+[; ;heater.c: 131:         {
+{
+"133
+[; ;heater.c: 133:             *retVal_t = PUSH_BUTTON_IS_NOT_PRESSED;
+[e = *U _retVal_t . `E1025 3 ]
+"134
+[; ;heater.c: 134:         }
+}
+[e :U 106 ]
+"135
+[; ;heater.c: 135:     }
+}
+[e :U 104 ]
+"137
+[; ;heater.c: 137:     return *retVal_t;
+[e ) *U _retVal_t ]
+[e $UE 96  ]
+"138
+[; ;heater.c: 138: }
+[e :UE 96 ]
+}
+"152
+[; ;heater.c: 152: static void Heater_turn_off(void)
+[v _Heater_turn_off `(v ~T0 @X0 1 sf ]
+"153
+[; ;heater.c: 153: {
+{
+[e :U _Heater_turn_off ]
+[f ]
+"155
+[; ;heater.c: 155:     SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP , SEVEN_SEGMENT_DISABLE_CHIP ,
+[e ( _SevenSegment_SelectChip (4 , , , . `E933 1 . `E933 1 . `E933 1 . `E933 1 ]
+"158
+[; ;heater.c: 158:     GPIO_WriteOnPin(2u , 2u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 2 `ui `uc -> -> 0 `ui `uc ]
+"160
+[; ;heater.c: 160:     GPIO_WriteOnPin(2u , 5u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 5 `ui `uc -> -> 0 `ui `uc ]
+"162
+[; ;heater.c: 162:     GPIO_WriteOnPin(1u , 7u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 1 `ui `uc -> -> 7 `ui `uc -> -> 0 `ui `uc ]
+"164
+[; ;heater.c: 164:     g_u8Sync_flag = 0;
+[e = _g_u8Sync_flag -> -> 0 `i `uc ]
+"165
+[; ;heater.c: 165:     g_u16Sum_of_ten_readings = 0;
+[e = _g_u16Sum_of_ten_readings -> -> 0 `i `us ]
+"166
+[; ;heater.c: 166:     g_u8Reading_counter = 0;
+[e = _g_u8Reading_counter -> -> 0 `i `uc ]
+"167
+[; ;heater.c: 167:     g_u8Reading_deleted_element = 0;
+[e = _g_u8Reading_deleted_element -> -> 0 `i `uc ]
+"168
+[; ;heater.c: 168:     g_u8Display_blank_counter = 0;
+[e = _g_u8Display_blank_counter -> -> 0 `i `uc ]
+"169
+[; ;heater.c: 169:     g_u8End_setup_state = 0;
+[e = _g_u8End_setup_state -> -> 0 `i `uc ]
+"170
+[; ;heater.c: 170:     g_u8Led_blank_counter = 0;
+[e = _g_u8Led_blank_counter -> -> 0 `i `uc ]
+"172
+[; ;heater.c: 172:     g_Heater_state_t = HEATER_OFF_STATE;
+[e = _g_Heater_state_t . `E1020 0 ]
+"173
+[; ;heater.c: 173: }
+[e :UE 107 ]
+}
+"190
+[; ;heater.c: 190: void Heater_Initialization(void)
+[v _Heater_Initialization `(v ~T0 @X0 1 ef ]
+"191
+[; ;heater.c: 191: {
+{
+[e :U _Heater_Initialization ]
+[f ]
+"193
+[; ;heater.c: 193:     EEPROM_Initialization();
+[e ( _EEPROM_Initialization ..  ]
+"195
+[; ;heater.c: 195:     SevenSegment_Initialization();
+[e ( _SevenSegment_Initialization ..  ]
+"197
+[; ;heater.c: 197:     GPIO_Enable_Pull_Up_On_PortB();
+[e ( _GPIO_Enable_Pull_Up_On_PortB ..  ]
+"199
+[; ;heater.c: 199:     GPIO_SetPinDirection(2u , 2u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 2 `ui `uc -> -> 2 `ui `uc -> -> 0 `ui `uc ]
+"201
+[; ;heater.c: 201:     ADC_Initialization(ADC_CHANNEL_2 , ADC_V_REF_DEFAULT_VALUE , ADC_V_REF_DEFAULT_VALUE);
+[e ( _ADC_Initialization (3 , , . `E858 2 . `E881 1 . `E881 1 ]
+"202
+[; ;heater.c: 202:     ADC_Select_prescaler(ADC_PRESCALER_16);
+[e ( _ADC_Select_prescaler (1 . `E868 5 ]
+"204
+[; ;heater.c: 204:     GPIO_SetPinDirection(2u , 5u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 2 `ui `uc -> -> 5 `ui `uc -> -> 0 `ui `uc ]
+"206
+[; ;heater.c: 206:     GPIO_SetPinDirection(1u , 3u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 3 `ui `uc -> -> 0 `ui `uc ]
+"207
+[; ;heater.c: 207:     GPIO_SetPinDirection(1u , 4u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 4 `ui `uc -> -> 0 `ui `uc ]
+"208
+[; ;heater.c: 208:     GPIO_SetPinDirection(1u , 5u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 5 `ui `uc -> -> 0 `ui `uc ]
+"209
+[; ;heater.c: 209:     GPIO_SetPinDirection(1u , 6u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 6 `ui `uc -> -> 0 `ui `uc ]
+"210
+[; ;heater.c: 210:     GPIO_SetPinDirection(1u , 7u , 0u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 7 `ui `uc -> -> 0 `ui `uc ]
+"212
+[; ;heater.c: 212:     GPIO_SetPinDirection(1u , 2u , 1u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 2 `ui `uc -> -> 1 `ui `uc ]
+"214
+[; ;heater.c: 214:     GPIO_SetPinDirection(1u , 1u , 1u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc -> -> 1 `ui `uc ]
+"216
+[; ;heater.c: 216:     GPIO_SetPinDirection(1u , 0u , 1u);
+[e ( _GPIO_SetPinDirection (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc -> -> 1 `ui `uc ]
+"218
+[; ;heater.c: 218:     External_interrupt_select_falling_edge();
+[e ( _External_interrupt_select_falling_edge ..  ]
+"220
+[; ;heater.c: 220:     External_interrupt_enable();
+[e ( _External_interrupt_enable ..  ]
+"221
+[; ;heater.c: 221: }
+[e :UE 108 ]
+}
+"234
+[; ;heater.c: 234: void Heater_Display_Task(void)
+[v _Heater_Display_Task `(v ~T0 @X0 1 ef ]
+"235
+[; ;heater.c: 235: {
+{
+[e :U _Heater_Display_Task ]
+[f ]
+"237
+[; ;heater.c: 237:     SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP , SEVEN_SEGMENT_DISABLE_CHIP ,
+[e ( _SevenSegment_SelectChip (4 , , , . `E933 1 . `E933 1 . `E933 1 . `E933 1 ]
+"239
+[; ;heater.c: 239:     switch(g_Heater_state_t)
+[e $U 111  ]
+"240
+[; ;heater.c: 240:     {
+{
+"241
+[; ;heater.c: 241:         case HEATER_OFF_STATE:
+[e :U 112 ]
+"243
+[; ;heater.c: 243:             break;
+[e $U 110  ]
+"244
+[; ;heater.c: 244:         case HEATER_ON_STATE:
+[e :U 113 ]
+"246
+[; ;heater.c: 246:             if(g_u8Sync_flag == 0)
+[e $ ! == -> _g_u8Sync_flag `i -> 0 `i 114  ]
+"247
+[; ;heater.c: 247:             {
+{
+"249
+[; ;heater.c: 249:                 SevenSegment_Display(g_u8Heater_real_time_temperature / 10 ,
+[e ( _SevenSegment_Display (2 , -> / -> _g_u8Heater_real_time_temperature `i -> 10 `i `uc . `E925 1 ]
+"252
+[; ;heater.c: 252:                 SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP ,
+[e ( _SevenSegment_SelectChip (4 , , , . `E933 1 . `E933 0 . `E933 1 . `E933 1 ]
+"256
+[; ;heater.c: 256:                 g_u8Sync_flag = 1;
+[e = _g_u8Sync_flag -> -> 1 `i `uc ]
+"257
+[; ;heater.c: 257:             }
+}
+[e $U 115  ]
+"258
+[; ;heater.c: 258:             else
+[e :U 114 ]
+"259
+[; ;heater.c: 259:             {
+{
+"261
+[; ;heater.c: 261:                 SevenSegment_Display(g_u8Heater_real_time_temperature % 10 ,
+[e ( _SevenSegment_Display (2 , -> % -> _g_u8Heater_real_time_temperature `i -> 10 `i `uc . `E925 1 ]
+"264
+[; ;heater.c: 264:                 SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP ,
+[e ( _SevenSegment_SelectChip (4 , , , . `E933 1 . `E933 1 . `E933 0 . `E933 1 ]
+"268
+[; ;heater.c: 268:                 g_u8Sync_flag = 0;
+[e = _g_u8Sync_flag -> -> 0 `i `uc ]
+"269
+[; ;heater.c: 269:             }
+}
+[e :U 115 ]
+"270
+[; ;heater.c: 270:             break;
+[e $U 110  ]
+"271
+[; ;heater.c: 271:         case HEATER_SET_TEMERATURE:
+[e :U 116 ]
+"273
+[; ;heater.c: 273:             if(g_u8Display_blank_counter < 10)
+[e $ ! < -> _g_u8Display_blank_counter `i -> 10 `i 117  ]
+"274
+[; ;heater.c: 274:             {
+{
+"276
+[; ;heater.c: 276:                 if(g_u8Sync_flag == 0)
+[e $ ! == -> _g_u8Sync_flag `i -> 0 `i 118  ]
+"277
+[; ;heater.c: 277:                 {
+{
+"279
+[; ;heater.c: 279:                     SevenSegment_Display(g_u8Heater_desired_temperature / 10 ,
+[e ( _SevenSegment_Display (2 , -> / -> _g_u8Heater_desired_temperature `i -> 10 `i `uc . `E925 1 ]
+"282
+[; ;heater.c: 282:                     SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP ,
+[e ( _SevenSegment_SelectChip (4 , , , . `E933 1 . `E933 0 . `E933 1 . `E933 1 ]
+"286
+[; ;heater.c: 286:                     g_u8Sync_flag = 1;
+[e = _g_u8Sync_flag -> -> 1 `i `uc ]
+"287
+[; ;heater.c: 287:                 }
+}
+[e $U 119  ]
+"288
+[; ;heater.c: 288:                 else
+[e :U 118 ]
+"289
+[; ;heater.c: 289:                 {
+{
+"291
+[; ;heater.c: 291:                     SevenSegment_Display(g_u8Heater_desired_temperature % 10 ,
+[e ( _SevenSegment_Display (2 , -> % -> _g_u8Heater_desired_temperature `i -> 10 `i `uc . `E925 1 ]
+"294
+[; ;heater.c: 294:                     SevenSegment_SelectChip(SEVEN_SEGMENT_DISABLE_CHIP ,
+[e ( _SevenSegment_SelectChip (4 , , , . `E933 1 . `E933 1 . `E933 0 . `E933 1 ]
+"298
+[; ;heater.c: 298:                     g_u8Sync_flag = 0;
+[e = _g_u8Sync_flag -> -> 0 `i `uc ]
+"299
+[; ;heater.c: 299:                 }
+}
+[e :U 119 ]
+"300
+[; ;heater.c: 300:             }
+}
+[e $U 120  ]
+"301
+[; ;heater.c: 301:             else if(g_u8Display_blank_counter == 10)
+[e :U 117 ]
+[e $ ! == -> _g_u8Display_blank_counter `i -> 10 `i 121  ]
+"302
+[; ;heater.c: 302:             {
+{
+"304
+[; ;heater.c: 304:                 g_u8Sync_flag = 0;
+[e = _g_u8Sync_flag -> -> 0 `i `uc ]
+"305
+[; ;heater.c: 305:             }
+}
+[e $U 122  ]
+"306
+[; ;heater.c: 306:             else if(g_u8Display_blank_counter == 20)
+[e :U 121 ]
+[e $ ! == -> _g_u8Display_blank_counter `i -> 20 `i 123  ]
+"307
+[; ;heater.c: 307:             {
+{
+"308
+[; ;heater.c: 308:                 g_u8Display_blank_counter = 0;
+[e = _g_u8Display_blank_counter -> -> 0 `i `uc ]
+"309
+[; ;heater.c: 309:             }
+}
+[e $U 124  ]
+"310
+[; ;heater.c: 310:             else
+[e :U 123 ]
+"311
+[; ;heater.c: 311:             {
+{
+"313
+[; ;heater.c: 313:             }
+}
+[e :U 124 ]
+[e :U 122 ]
+[e :U 120 ]
+"314
+[; ;heater.c: 314:             break;
+[e $U 110  ]
+"315
+[; ;heater.c: 315:         default:
+[e :U 125 ]
+"317
+[; ;heater.c: 317:             break;
+[e $U 110  ]
+"318
+[; ;heater.c: 318:     }
+}
+[e $U 110  ]
+[e :U 111 ]
+[e [\ -> _g_Heater_state_t `ui , $ -> . `E1020 0 `ui 112
+ , $ -> . `E1020 1 `ui 113
+ , $ -> . `E1020 2 `ui 116
+ 125 ]
+[e :U 110 ]
+"319
+[; ;heater.c: 319: }
+[e :UE 109 ]
+}
+"332
+[; ;heater.c: 332: void Heater_On_Off_Button_Task(void)
+[v _Heater_On_Off_Button_Task `(v ~T0 @X0 1 ef ]
+"333
+[; ;heater.c: 333: {
+{
+[e :U _Heater_On_Off_Button_Task ]
+[f ]
+"335
+[; ;heater.c: 335:     static EnumButton_State_t On_Off_Button;
+[v F1051 `E1025 ~T0 @X0 1 s On_Off_Button ]
+"337
+[; ;heater.c: 337:     uint8 u8Saved_temperature_in_EEPROM;
+[v _u8Saved_temperature_in_EEPROM `uc ~T0 @X0 1 a ]
+"339
+[; ;heater.c: 339:     Check_ON_Push_Button(1u , 0u , &On_Off_Button);
+[e ( _Check_ON_Push_Button (3 , , -> -> 1 `ui `uc -> -> 0 `ui `uc &U F1051 ]
+"340
+[; ;heater.c: 340:     switch(g_Heater_state_t)
+[e $U 128  ]
+"341
+[; ;heater.c: 341:     {
+{
+"342
+[; ;heater.c: 342:         case HEATER_OFF_STATE:
+[e :U 129 ]
+"343
+[; ;heater.c: 343:             if(On_Off_Button == PUSH_BUTTON_IS_PRESSED)
+[e $ ! == -> F1051 `ui -> . `E1025 0 `ui 130  ]
+"344
+[; ;heater.c: 344:             {
+{
+"346
+[; ;heater.c: 346:                 u8Saved_temperature_in_EEPROM = EEPROM_Read_Byte(25u);
+[e = _u8Saved_temperature_in_EEPROM ( _EEPROM_Read_Byte (1 -> -> 25 `ui `us ]
+"348
+[; ;heater.c: 348:                 g_u8Heater_desired_temperature = (u8Saved_temperature_in_EEPROM >= 35 &&
+[e = _g_u8Heater_desired_temperature -> ? && >= -> _u8Saved_temperature_in_EEPROM `i -> 35 `i <= -> _u8Saved_temperature_in_EEPROM `i -> 75 `i : -> _u8Saved_temperature_in_EEPROM `i -> 60 `i `uc ]
+"352
+[; ;heater.c: 352:                 g_Heater_state_t = HEATER_ON_STATE;
+[e = _g_Heater_state_t . `E1020 1 ]
+"353
+[; ;heater.c: 353:             }
+}
+[e $U 131  ]
+"354
+[; ;heater.c: 354:             else if(On_Off_Button == PUSH_BUTTON_IS_NOT_PRESSED)
+[e :U 130 ]
+[e $ ! == -> F1051 `ui -> . `E1025 3 `ui 132  ]
+"355
+[; ;heater.c: 355:             {
+{
+"357
+[; ;heater.c: 357:                 CPU_sleep();
+[e ( _CPU_sleep ..  ]
+"358
+[; ;heater.c: 358:             }
+}
+[e $U 133  ]
+"359
+[; ;heater.c: 359:             else
+[e :U 132 ]
+"360
+[; ;heater.c: 360:             {
+{
+"362
+[; ;heater.c: 362:             }
+}
+[e :U 133 ]
+[e :U 131 ]
+"363
+[; ;heater.c: 363:             break;
+[e $U 127  ]
+"364
+[; ;heater.c: 364:         case HEATER_ON_STATE:
+[e :U 134 ]
+"365
+[; ;heater.c: 365:         case HEATER_SET_TEMERATURE:
+[e :U 135 ]
+"366
+[; ;heater.c: 366:             if(On_Off_Button == PUSH_BUTTON_IS_PRESSED)
+[e $ ! == -> F1051 `ui -> . `E1025 0 `ui 136  ]
+"367
+[; ;heater.c: 367:             {
+{
+"368
+[; ;heater.c: 368:                 Heater_turn_off();
+[e ( _Heater_turn_off ..  ]
+"369
+[; ;heater.c: 369:             }
+}
+[e $U 137  ]
+"370
+[; ;heater.c: 370:             else
+[e :U 136 ]
+"371
+[; ;heater.c: 371:             {
+{
+"373
+[; ;heater.c: 373:             }
+}
+[e :U 137 ]
+"374
+[; ;heater.c: 374:             break;
+[e $U 127  ]
+"375
+[; ;heater.c: 375:         default:
+[e :U 138 ]
+"377
+[; ;heater.c: 377:             break;
+[e $U 127  ]
+"378
+[; ;heater.c: 378:     }
+}
+[e $U 127  ]
+[e :U 128 ]
+[e [\ -> _g_Heater_state_t `ui , $ -> . `E1020 0 `ui 129
+ , $ -> . `E1020 1 `ui 134
+ , $ -> . `E1020 2 `ui 135
+ 138 ]
+[e :U 127 ]
+"379
+[; ;heater.c: 379: }
+[e :UE 126 ]
+}
+"393
+[; ;heater.c: 393: void Heater_Up_Down_Buttons_Task(void)
+[v _Heater_Up_Down_Buttons_Task `(v ~T0 @X0 1 ef ]
+"394
+[; ;heater.c: 394: {
+{
+[e :U _Heater_Up_Down_Buttons_Task ]
+[f ]
+"396
+[; ;heater.c: 396:     static EnumButton_State_t Up_Button;
+[v F1054 `E1025 ~T0 @X0 1 s Up_Button ]
+"397
+[; ;heater.c: 397:     static EnumButton_State_t Down_Button;
+[v F1055 `E1025 ~T0 @X0 1 s Down_Button ]
+"398
+[; ;heater.c: 398:     switch(g_Heater_state_t)
+[e $U 141  ]
+"399
+[; ;heater.c: 399:     {
+{
+"400
+[; ;heater.c: 400:         case HEATER_OFF_STATE:
+[e :U 142 ]
+"402
+[; ;heater.c: 402:             break;
+[e $U 140  ]
+"403
+[; ;heater.c: 403:         case HEATER_ON_STATE:
+[e :U 143 ]
+"405
+[; ;heater.c: 405:             if(Check_ON_Push_Button(1u , 1u , &Down_Button) == PUSH_BUTTON_IS_PRESSED ||
+[e $ ! || == -> ( _Check_ON_Push_Button (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc &U F1055 `ui -> . `E1025 0 `ui == -> ( _Check_ON_Push_Button (3 , , -> -> 1 `ui `uc -> -> 2 `ui `uc &U F1054 `ui -> . `E1025 0 `ui 144  ]
+"407
+[; ;heater.c: 407:             {
+{
+"409
+[; ;heater.c: 409:                 g_Heater_state_t = HEATER_SET_TEMERATURE;
+[e = _g_Heater_state_t . `E1020 2 ]
+"410
+[; ;heater.c: 410:             }
+}
+[e $U 145  ]
+"411
+[; ;heater.c: 411:             else
+[e :U 144 ]
+"412
+[; ;heater.c: 412:             {
+{
+"414
+[; ;heater.c: 414:             }
+}
+[e :U 145 ]
+"415
+[; ;heater.c: 415:             break;
+[e $U 140  ]
+"416
+[; ;heater.c: 416:         case HEATER_SET_TEMERATURE:
+[e :U 146 ]
+"418
+[; ;heater.c: 418:             if(Check_ON_Push_Button(1u , 1u , &Down_Button) == PUSH_BUTTON_IS_PRESSED)
+[e $ ! == -> ( _Check_ON_Push_Button (3 , , -> -> 1 `ui `uc -> -> 1 `ui `uc &U F1055 `ui -> . `E1025 0 `ui 147  ]
+"419
+[; ;heater.c: 419:             {
+{
+"421
+[; ;heater.c: 421:                 g_u8End_setup_state = 0;
+[e = _g_u8End_setup_state -> -> 0 `i `uc ]
+"423
+[; ;heater.c: 423:                 g_u8Display_blank_counter = 0;
+[e = _g_u8Display_blank_counter -> -> 0 `i `uc ]
+"425
+[; ;heater.c: 425:                 if(g_u8Heater_desired_temperature > 35u)
+[e $ ! > -> _g_u8Heater_desired_temperature `ui -> 35 `ui 148  ]
+"426
+[; ;heater.c: 426:                 {
+{
+"428
+[; ;heater.c: 428:                     g_u8Heater_desired_temperature -= 5;
+[e =- _g_u8Heater_desired_temperature -> -> 5 `i `uc ]
+"430
+[; ;heater.c: 430:                     EEPROM_Save_Byte(25u , g_u8Heater_desired_temperature);
+[e ( _EEPROM_Save_Byte (2 , -> -> 25 `ui `us _g_u8Heater_desired_temperature ]
+"431
+[; ;heater.c: 431:                 }
+}
+[e $U 149  ]
+"432
+[; ;heater.c: 432:                 else
+[e :U 148 ]
+"433
+[; ;heater.c: 433:                 {
+{
+"435
+[; ;heater.c: 435:                 }
+}
+[e :U 149 ]
+"436
+[; ;heater.c: 436:             }
+}
+[e $U 150  ]
+"438
+[; ;heater.c: 438:             else if(Check_ON_Push_Button(1u , 2u , &Up_Button) == PUSH_BUTTON_IS_PRESSED)
+[e :U 147 ]
+[e $ ! == -> ( _Check_ON_Push_Button (3 , , -> -> 1 `ui `uc -> -> 2 `ui `uc &U F1054 `ui -> . `E1025 0 `ui 151  ]
+"439
+[; ;heater.c: 439:             {
+{
+"441
+[; ;heater.c: 441:                 g_u8End_setup_state = 0;
+[e = _g_u8End_setup_state -> -> 0 `i `uc ]
+"443
+[; ;heater.c: 443:                 g_u8Display_blank_counter = 0;
+[e = _g_u8Display_blank_counter -> -> 0 `i `uc ]
+"445
+[; ;heater.c: 445:                 if(g_u8Heater_desired_temperature < 75u)
+[e $ ! < -> _g_u8Heater_desired_temperature `ui -> 75 `ui 152  ]
+"446
+[; ;heater.c: 446:                 {
+{
+"448
+[; ;heater.c: 448:                     g_u8Heater_desired_temperature += 5;
+[e =+ _g_u8Heater_desired_temperature -> -> 5 `i `uc ]
+"450
+[; ;heater.c: 450:                     EEPROM_Save_Byte(25u , g_u8Heater_desired_temperature);
+[e ( _EEPROM_Save_Byte (2 , -> -> 25 `ui `us _g_u8Heater_desired_temperature ]
+"451
+[; ;heater.c: 451:                 }
+}
+[e $U 153  ]
+"452
+[; ;heater.c: 452:                 else
+[e :U 152 ]
+"453
+[; ;heater.c: 453:                 {
+{
+"455
+[; ;heater.c: 455:                 }
+}
+[e :U 153 ]
+"456
+[; ;heater.c: 456:             }
+}
+[e $U 154  ]
+"457
+[; ;heater.c: 457:             else
+[e :U 151 ]
+"458
+[; ;heater.c: 458:             {
+{
+"460
+[; ;heater.c: 460:             }
+}
+[e :U 154 ]
+[e :U 150 ]
+"461
+[; ;heater.c: 461:             break;
+[e $U 140  ]
+"462
+[; ;heater.c: 462:         default:
+[e :U 155 ]
+"464
+[; ;heater.c: 464:             break;
+[e $U 140  ]
+"465
+[; ;heater.c: 465:     }
+}
+[e $U 140  ]
+[e :U 141 ]
+[e [\ -> _g_Heater_state_t `ui , $ -> . `E1020 0 `ui 142
+ , $ -> . `E1020 1 `ui 143
+ , $ -> . `E1020 2 `ui 146
+ 155 ]
+[e :U 140 ]
+"466
+[; ;heater.c: 466: }
+[e :UE 139 ]
+}
+"480
+[; ;heater.c: 480: void Heater_LED_Task(void)
+[v _Heater_LED_Task `(v ~T0 @X0 1 ef ]
+"481
+[; ;heater.c: 481: {
+{
+[e :U _Heater_LED_Task ]
+[f ]
+"482
+[; ;heater.c: 482:     switch(g_Heater_state_t)
+[e $U 158  ]
+"483
+[; ;heater.c: 483:     {
+{
+"484
+[; ;heater.c: 484:         case HEATER_OFF_STATE:
+[e :U 159 ]
+"486
+[; ;heater.c: 486:             break;
+[e $U 157  ]
+"487
+[; ;heater.c: 487:         case HEATER_ON_STATE:
+[e :U 160 ]
+"489
+[; ;heater.c: 489:             if(g_u8Heater_desired_temperature < g_u8Heater_real_time_temperature)
+[e $ ! < -> _g_u8Heater_desired_temperature `i -> _g_u8Heater_real_time_temperature `i 161  ]
+"490
+[; ;heater.c: 490:             {
+{
+"492
+[; ;heater.c: 492:                 GPIO_WriteOnPin(1u , 7u , 1u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 1 `ui `uc -> -> 7 `ui `uc -> -> 1 `ui `uc ]
+"494
+[; ;heater.c: 494:                 g_u8Led_blank_counter = 20;
+[e = _g_u8Led_blank_counter -> -> 20 `i `uc ]
+"495
+[; ;heater.c: 495:             }
+}
+[e $U 162  ]
+"497
+[; ;heater.c: 497:             else if(g_u8Heater_desired_temperature > g_u8Heater_real_time_temperature)
+[e :U 161 ]
+[e $ ! > -> _g_u8Heater_desired_temperature `i -> _g_u8Heater_real_time_temperature `i 163  ]
+"498
+[; ;heater.c: 498:             {
+{
+"500
+[; ;heater.c: 500:                 if(g_u8Led_blank_counter == 10)
+[e $ ! == -> _g_u8Led_blank_counter `i -> 10 `i 164  ]
+"501
+[; ;heater.c: 501:                 {
+{
+"503
+[; ;heater.c: 503:                     GPIO_WriteOnPin(1u , 7u , 1u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 1 `ui `uc -> -> 7 `ui `uc -> -> 1 `ui `uc ]
+"505
+[; ;heater.c: 505:                     g_u8Led_blank_counter++;
+[e ++ _g_u8Led_blank_counter -> -> 1 `i `uc ]
+"507
+[; ;heater.c: 507:                 }
+}
+[e $U 165  ]
+"508
+[; ;heater.c: 508:                 else if(g_u8Led_blank_counter == 20)
+[e :U 164 ]
+[e $ ! == -> _g_u8Led_blank_counter `i -> 20 `i 166  ]
+"509
+[; ;heater.c: 509:                 {
+{
+"511
+[; ;heater.c: 511:                     GPIO_WriteOnPin(1u , 7u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 1 `ui `uc -> -> 7 `ui `uc -> -> 0 `ui `uc ]
+"513
+[; ;heater.c: 513:                     g_u8Led_blank_counter = 0;
+[e = _g_u8Led_blank_counter -> -> 0 `i `uc ]
+"514
+[; ;heater.c: 514:                 }
+}
+[e $U 167  ]
+"515
+[; ;heater.c: 515:                 else
+[e :U 166 ]
+"516
+[; ;heater.c: 516:                 {
+{
+"518
+[; ;heater.c: 518:                     g_u8Led_blank_counter++;
+[e ++ _g_u8Led_blank_counter -> -> 1 `i `uc ]
+"519
+[; ;heater.c: 519:                 }
+}
+[e :U 167 ]
+[e :U 165 ]
+"520
+[; ;heater.c: 520:             }
+}
+[e $U 168  ]
+"522
+[; ;heater.c: 522:             else
+[e :U 163 ]
+"523
+[; ;heater.c: 523:             {
+{
+"525
+[; ;heater.c: 525:             }
+}
+[e :U 168 ]
+[e :U 162 ]
+"526
+[; ;heater.c: 526:             break;
+[e $U 157  ]
+"527
+[; ;heater.c: 527:         case HEATER_SET_TEMERATURE:
+[e :U 169 ]
+"529
+[; ;heater.c: 529:             GPIO_WriteOnPin(1u , 7u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 1 `ui `uc -> -> 7 `ui `uc -> -> 0 `ui `uc ]
+"531
+[; ;heater.c: 531:             g_u8Led_blank_counter = 0;
+[e = _g_u8Led_blank_counter -> -> 0 `i `uc ]
+"532
+[; ;heater.c: 532:             break;
+[e $U 157  ]
+"533
+[; ;heater.c: 533:         default:
+[e :U 170 ]
+"535
+[; ;heater.c: 535:             break;
+[e $U 157  ]
+"536
+[; ;heater.c: 536:     }
+}
+[e $U 157  ]
+[e :U 158 ]
+[e [\ -> _g_Heater_state_t `ui , $ -> . `E1020 0 `ui 159
+ , $ -> . `E1020 1 `ui 160
+ , $ -> . `E1020 2 `ui 169
+ 170 ]
+[e :U 157 ]
+"537
+[; ;heater.c: 537: }
+[e :UE 156 ]
+}
+"551
+[; ;heater.c: 551: void Heater_Heating_Cooling_Task(void)
+[v _Heater_Heating_Cooling_Task `(v ~T0 @X0 1 ef ]
+"552
+[; ;heater.c: 552: {
+{
+[e :U _Heater_Heating_Cooling_Task ]
+[f ]
+"553
+[; ;heater.c: 553:     switch(g_Heater_state_t)
+[e $U 173  ]
+"554
+[; ;heater.c: 554:     {
+{
+"555
+[; ;heater.c: 555:         case HEATER_OFF_STATE:
+[e :U 174 ]
+"557
+[; ;heater.c: 557:             break;
+[e $U 172  ]
+"558
+[; ;heater.c: 558:         case HEATER_ON_STATE:
+[e :U 175 ]
+"560
+[; ;heater.c: 560:             if(g_u8Heater_desired_temperature < g_u8Heater_real_time_temperature)
+[e $ ! < -> _g_u8Heater_desired_temperature `i -> _g_u8Heater_real_time_temperature `i 176  ]
+"561
+[; ;heater.c: 561:             {
+{
+"563
+[; ;heater.c: 563:                 GPIO_WriteOnPin(2u , 2u , 1u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 2 `ui `uc -> -> 1 `ui `uc ]
+"565
+[; ;heater.c: 565:                 GPIO_WriteOnPin(2u , 5u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 5 `ui `uc -> -> 0 `ui `uc ]
+"566
+[; ;heater.c: 566:             }
+}
+[e $U 177  ]
+"568
+[; ;heater.c: 568:             else if(g_u8Heater_desired_temperature > g_u8Heater_real_time_temperature)
+[e :U 176 ]
+[e $ ! > -> _g_u8Heater_desired_temperature `i -> _g_u8Heater_real_time_temperature `i 178  ]
+"569
+[; ;heater.c: 569:             {
+{
+"571
+[; ;heater.c: 571:                 GPIO_WriteOnPin(2u , 2u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 2 `ui `uc -> -> 0 `ui `uc ]
+"573
+[; ;heater.c: 573:                 GPIO_WriteOnPin(2u , 5u , 1u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 5 `ui `uc -> -> 1 `ui `uc ]
+"574
+[; ;heater.c: 574:             }
+}
+[e $U 179  ]
+"576
+[; ;heater.c: 576:             else
+[e :U 178 ]
+"577
+[; ;heater.c: 577:             {
+{
+"579
+[; ;heater.c: 579:                 GPIO_WriteOnPin(2u , 2u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 2 `ui `uc -> -> 0 `ui `uc ]
+"581
+[; ;heater.c: 581:                 GPIO_WriteOnPin(2u , 5u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 5 `ui `uc -> -> 0 `ui `uc ]
+"582
+[; ;heater.c: 582:             }
+}
+[e :U 179 ]
+[e :U 177 ]
+"583
+[; ;heater.c: 583:             break;
+[e $U 172  ]
+"584
+[; ;heater.c: 584:         case HEATER_SET_TEMERATURE:
+[e :U 180 ]
+"586
+[; ;heater.c: 586:             GPIO_WriteOnPin(2u , 2u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 2 `ui `uc -> -> 0 `ui `uc ]
+"588
+[; ;heater.c: 588:             GPIO_WriteOnPin(2u , 5u , 0u);
+[e ( _GPIO_WriteOnPin (3 , , -> -> 2 `ui `uc -> -> 5 `ui `uc -> -> 0 `ui `uc ]
+"589
+[; ;heater.c: 589:             break;
+[e $U 172  ]
+"590
+[; ;heater.c: 590:         default:
+[e :U 181 ]
+"592
+[; ;heater.c: 592:             break;
+[e $U 172  ]
+"593
+[; ;heater.c: 593:     }
+}
+[e $U 172  ]
+[e :U 173 ]
+[e [\ -> _g_Heater_state_t `ui , $ -> . `E1020 0 `ui 174
+ , $ -> . `E1020 1 `ui 175
+ , $ -> . `E1020 2 `ui 180
+ 181 ]
+[e :U 172 ]
+"594
+[; ;heater.c: 594: }
+[e :UE 171 ]
+}
+"608
+[; ;heater.c: 608: void Heater_Reading_Temperature_Sensor_Task(void)
+[v _Heater_Reading_Temperature_Sensor_Task `(v ~T0 @X0 1 ef ]
+"609
+[; ;heater.c: 609: {
+{
+[e :U _Heater_Reading_Temperature_Sensor_Task ]
+[f ]
+"611
+[; ;heater.c: 611:     uint8 g_u8Current_reading_temperature;
+[v _g_u8Current_reading_temperature `uc ~T0 @X0 1 a ]
+"612
+[; ;heater.c: 612:     switch(g_Heater_state_t)
+[e $U 184  ]
+"613
+[; ;heater.c: 613:     {
+{
+"614
+[; ;heater.c: 614:         case HEATER_OFF_STATE:
+[e :U 185 ]
+"616
+[; ;heater.c: 616:             break;
+[e $U 183  ]
+"617
+[; ;heater.c: 617:         case HEATER_ON_STATE:
+[e :U 186 ]
+"619
+[; ;heater.c: 619:             ADC_Start_conversion();
+[e ( _ADC_Start_conversion ..  ]
+"621
+[; ;heater.c: 621:             g_u8Current_reading_temperature = ADC_Read_value() / 2;
+[e = _g_u8Current_reading_temperature -> / -> ( _ADC_Read_value ..  `ui -> -> 2 `i `ui `uc ]
+"623
+[; ;heater.c: 623:             g_u8Current_reading_temperature = g_u8Current_reading_temperature > 40 ?
+[e = _g_u8Current_reading_temperature -> ? > -> _g_u8Current_reading_temperature `i -> 40 `i : - -> _g_u8Current_reading_temperature `i -> 1 `i -> _g_u8Current_reading_temperature `i `uc ]
+"626
+[; ;heater.c: 626:             if(g_u8Reading_counter < 10)
+[e $ ! < -> _g_u8Reading_counter `i -> 10 `i 187  ]
+"627
+[; ;heater.c: 627:             {
+{
+"629
+[; ;heater.c: 629:                 g_u16Sum_of_ten_readings += g_u8Current_reading_temperature;
+[e =+ _g_u16Sum_of_ten_readings -> _g_u8Current_reading_temperature `us ]
+"631
+[; ;heater.c: 631:                 g_u8Reading_arr[g_u8Reading_counter] = g_u8Current_reading_temperature;
+[e = *U + &U _g_u8Reading_arr * -> _g_u8Reading_counter `ux -> -> # *U &U _g_u8Reading_arr `ui `ux _g_u8Current_reading_temperature ]
+"633
+[; ;heater.c: 633:                 g_u8Reading_counter++;
+[e ++ _g_u8Reading_counter -> -> 1 `i `uc ]
+"635
+[; ;heater.c: 635:                 g_u8Heater_real_time_temperature = g_u8Heater_desired_temperature;
+[e = _g_u8Heater_real_time_temperature _g_u8Heater_desired_temperature ]
+"636
+[; ;heater.c: 636:             }
+}
+[e $U 188  ]
+"638
+[; ;heater.c: 638:             else
+[e :U 187 ]
+"639
+[; ;heater.c: 639:             {
+{
+"641
+[; ;heater.c: 641:                 g_u16Sum_of_ten_readings = g_u16Sum_of_ten_readings + g_u8Current_reading_temperature -
+[e = _g_u16Sum_of_ten_readings -> - + -> _g_u16Sum_of_ten_readings `ui -> _g_u8Current_reading_temperature `ui -> *U + &U _g_u8Reading_arr * -> _g_u8Reading_deleted_element `ux -> -> # *U &U _g_u8Reading_arr `ui `ux `ui `us ]
+"644
+[; ;heater.c: 644:                 g_u8Reading_arr[g_u8Reading_deleted_element] = g_u8Current_reading_temperature;
+[e = *U + &U _g_u8Reading_arr * -> _g_u8Reading_deleted_element `ux -> -> # *U &U _g_u8Reading_arr `ui `ux _g_u8Current_reading_temperature ]
+"646
+[; ;heater.c: 646:                 if(g_u8Reading_deleted_element == 9)
+[e $ ! == -> _g_u8Reading_deleted_element `i -> 9 `i 189  ]
+"647
+[; ;heater.c: 647:                 {
+{
+"648
+[; ;heater.c: 648:                     g_u8Reading_deleted_element = 0;
+[e = _g_u8Reading_deleted_element -> -> 0 `i `uc ]
+"649
+[; ;heater.c: 649:                 }
+}
+[e $U 190  ]
+"650
+[; ;heater.c: 650:                 else
+[e :U 189 ]
+"651
+[; ;heater.c: 651:                 {
+{
+"653
+[; ;heater.c: 653:                     g_u8Reading_deleted_element++;
+[e ++ _g_u8Reading_deleted_element -> -> 1 `i `uc ]
+"654
+[; ;heater.c: 654:                 }
+}
+[e :U 190 ]
+"656
+[; ;heater.c: 656:                 g_u8Heater_real_time_temperature = g_u16Sum_of_ten_readings / 10;
+[e = _g_u8Heater_real_time_temperature -> / -> _g_u16Sum_of_ten_readings `ui -> -> 10 `i `ui `uc ]
+"657
+[; ;heater.c: 657:             }
+}
+[e :U 188 ]
+"658
+[; ;heater.c: 658:             break;
+[e $U 183  ]
+"659
+[; ;heater.c: 659:         case HEATER_SET_TEMERATURE:
+[e :U 191 ]
+"661
+[; ;heater.c: 661:             g_u8Display_blank_counter++;
+[e ++ _g_u8Display_blank_counter -> -> 1 `i `uc ]
+"664
+[; ;heater.c: 664:             g_u8End_setup_state++;
+[e ++ _g_u8End_setup_state -> -> 1 `i `uc ]
+"667
+[; ;heater.c: 667:             if(g_u8End_setup_state == 50)
+[e $ ! == -> _g_u8End_setup_state `i -> 50 `i 192  ]
+"668
+[; ;heater.c: 668:             {
+{
+"670
+[; ;heater.c: 670:                 g_u8Display_blank_counter = 0;
+[e = _g_u8Display_blank_counter -> -> 0 `i `uc ]
+"672
+[; ;heater.c: 672:                 g_u8End_setup_state = 0;
+[e = _g_u8End_setup_state -> -> 0 `i `uc ]
+"674
+[; ;heater.c: 674:                 g_Heater_state_t = HEATER_ON_STATE;
+[e = _g_Heater_state_t . `E1020 1 ]
+"675
+[; ;heater.c: 675:             }
+}
+[e $U 193  ]
+"676
+[; ;heater.c: 676:             else
+[e :U 192 ]
+"677
+[; ;heater.c: 677:             {
+{
+"679
+[; ;heater.c: 679:             }
+}
+[e :U 193 ]
+"680
+[; ;heater.c: 680:             break;
+[e $U 183  ]
+"681
+[; ;heater.c: 681:         default:
+[e :U 194 ]
+"683
+[; ;heater.c: 683:             break;
+[e $U 183  ]
+"684
+[; ;heater.c: 684:     }
+}
+[e $U 183  ]
+[e :U 184 ]
+[e [\ -> _g_Heater_state_t `ui , $ -> . `E1020 0 `ui 185
+ , $ -> . `E1020 1 `ui 186
+ , $ -> . `E1020 2 `ui 191
+ 194 ]
+[e :U 183 ]
+"685
+[; ;heater.c: 685: }
+[e :UE 182 ]
+}

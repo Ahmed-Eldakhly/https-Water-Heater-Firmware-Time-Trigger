@@ -1,0 +1,111 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[p mainexit ]
+"46 ./heater.h
+[; ;./heater.h: 46: void Heater_Initialization(void);
+[v _Heater_Initialization `(v ~T0 @X0 0 ef ]
+"30 main.c
+[; ;main.c: 30:     Scheduler_Initialization(1u);
+[c E57 0 1 2 3 .. ]
+[n E57 . SCHEDULER_NOT_AVAILABLE_TICK_TIME_ERROR SCHEDULER_TASKS_QUEUE_IS_FULL_ERROR SCHEDULER_ID_IS_NOT_EXIST_ERROR SCHEDULER_NO_ERROR  ]
+"60 ./scheduler.h
+[; ;./scheduler.h: 60: extern EnumScheduler_Error_t Scheduler_Initialization(TickTime a_u8tickTme);
+[v _Scheduler_Initialization `(E57 ~T0 @X0 0 ef1`uc ]
+[v F66 `(v ~T0 @X0 0 tf ]
+"32 main.c
+[; ;main.c: 32:     Scheduler_StartFunction(initialization_Tasks , 1 , 1 , 0 , ONCE);
+[c E53 0 1 .. ]
+[n E53 . ONCE REPEAT  ]
+"77 ./scheduler.h
+[; ;./scheduler.h: 77: extern EnumScheduler_Error_t Scheduler_StartFunction(void (*task_function_ptr) (void),
+[v _Scheduler_StartFunction `(E57 ~T0 @X0 0 ef5`*F66`uc`us`us`E53 ]
+"22 main.c
+[; ;main.c: 22: void initialization_Tasks(void);
+[v _initialization_Tasks `(v ~T0 @X0 0 ef ]
+"105 ./scheduler.h
+[; ;./scheduler.h: 105: extern void Scheduler_Dispatcher(void);
+[v _Scheduler_Dispatcher `(v ~T0 @X0 0 ef ]
+"72 ./heater.h
+[; ;./heater.h: 72: void Heater_On_Off_Button_Task(void);
+[v _Heater_On_Off_Button_Task `(v ~T0 @X0 0 ef ]
+"86
+[; ;./heater.h: 86: void Heater_Up_Down_Buttons_Task(void);
+[v _Heater_Up_Down_Buttons_Task `(v ~T0 @X0 0 ef ]
+"59
+[; ;./heater.h: 59: void Heater_Display_Task(void);
+[v _Heater_Display_Task `(v ~T0 @X0 0 ef ]
+"128
+[; ;./heater.h: 128: void Heater_Reading_Temperature_Sensor_Task(void);
+[v _Heater_Reading_Temperature_Sensor_Task `(v ~T0 @X0 0 ef ]
+"114
+[; ;./heater.h: 114: void Heater_Heating_Cooling_Task(void);
+[v _Heater_Heating_Cooling_Task `(v ~T0 @X0 0 ef ]
+"100
+[; ;./heater.h: 100: void Heater_LED_Task(void);
+[v _Heater_LED_Task `(v ~T0 @X0 0 ef ]
+[v $root$_main `(v ~T0 @X0 0 e ]
+"25 main.c
+[; ;main.c: 25: void main(void)
+[v _main `(v ~T0 @X0 1 ef ]
+"26
+[; ;main.c: 26: {
+{
+[e :U _main ]
+[f ]
+"28
+[; ;main.c: 28:     Heater_Initialization();
+[e ( _Heater_Initialization ..  ]
+"30
+[; ;main.c: 30:     Scheduler_Initialization(1u);
+[e ( _Scheduler_Initialization (1 -> -> 1 `ui `uc ]
+"32
+[; ;main.c: 32:     Scheduler_StartFunction(initialization_Tasks , 1 , 1 , 0 , ONCE);
+[e ( _Scheduler_StartFunction (4 , , , , &U _initialization_Tasks -> -> 1 `i `uc -> -> 1 `i `us -> -> 0 `i `us . `E53 0 ]
+"34
+[; ;main.c: 34:     while(1)
+[e :U 3 ]
+"35
+[; ;main.c: 35:     {
+{
+"37
+[; ;main.c: 37:         Scheduler_Dispatcher();
+[e ( _Scheduler_Dispatcher ..  ]
+"38
+[; ;main.c: 38:     }
+}
+[e :U 2 ]
+[e $U 3  ]
+[e :U 4 ]
+"39
+[; ;main.c: 39: }
+[e :UE 1 ]
+}
+"52
+[; ;main.c: 52: void initialization_Tasks(void)
+[v _initialization_Tasks `(v ~T0 @X0 1 ef ]
+"53
+[; ;main.c: 53: {
+{
+[e :U _initialization_Tasks ]
+[f ]
+"55
+[; ;main.c: 55:     Scheduler_StartFunction(Heater_On_Off_Button_Task , 1 , 10 , 0 , REPEAT);
+[e ( _Scheduler_StartFunction (4 , , , , &U _Heater_On_Off_Button_Task -> -> 1 `i `uc -> -> 10 `i `us -> -> 0 `i `us . `E53 1 ]
+"57
+[; ;main.c: 57:     Scheduler_StartFunction(Heater_Up_Down_Buttons_Task , 2 , 10 , 1 , REPEAT);
+[e ( _Scheduler_StartFunction (4 , , , , &U _Heater_Up_Down_Buttons_Task -> -> 2 `i `uc -> -> 10 `i `us -> -> 1 `i `us . `E53 1 ]
+"59
+[; ;main.c: 59:     Scheduler_StartFunction(Heater_Display_Task , 3 , 10 , 3 , REPEAT);
+[e ( _Scheduler_StartFunction (4 , , , , &U _Heater_Display_Task -> -> 3 `i `uc -> -> 10 `i `us -> -> 3 `i `us . `E53 1 ]
+"61
+[; ;main.c: 61:     Scheduler_StartFunction(Heater_Reading_Temperature_Sensor_Task , 4 , 100 , 5 , REPEAT);
+[e ( _Scheduler_StartFunction (4 , , , , &U _Heater_Reading_Temperature_Sensor_Task -> -> 4 `i `uc -> -> 100 `i `us -> -> 5 `i `us . `E53 1 ]
+"63
+[; ;main.c: 63:     Scheduler_StartFunction(Heater_Heating_Cooling_Task , 5 , 100 , 6 , REPEAT);
+[e ( _Scheduler_StartFunction (4 , , , , &U _Heater_Heating_Cooling_Task -> -> 5 `i `uc -> -> 100 `i `us -> -> 6 `i `us . `E53 1 ]
+"65
+[; ;main.c: 65:     Scheduler_StartFunction(Heater_LED_Task , 6 , 100 , 7 , REPEAT);
+[e ( _Scheduler_StartFunction (4 , , , , &U _Heater_LED_Task -> -> 6 `i `uc -> -> 100 `i `us -> -> 7 `i `us . `E53 1 ]
+"66
+[; ;main.c: 66: }
+[e :UE 5 ]
+}

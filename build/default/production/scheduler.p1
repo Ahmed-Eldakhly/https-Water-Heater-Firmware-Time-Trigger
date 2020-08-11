@@ -1,0 +1,720 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"47 scheduler.c
+[; ;scheduler.c: 47: static StructScheduler_Object_t Scheduler_Tasks[10u];
+[c E11 0 1 .. ]
+[n E11 . ONCE REPEAT  ]
+[c E82 0 1 2 .. ]
+[n E82 . READY RUNNING WAITING  ]
+[v F94 `(v ~T0 @X0 0 tf ]
+"32
+[; ;scheduler.c: 32: typedef struct {
+[s S2 `uc 1 `us 1 `us 1 `E11 1 `E82 1 `*F94 1 ]
+[n S2 . Task_ID Task_ExecutionTime Task_Periodicity Task_RepeatType Task_State Task_Function ]
+"226 ./timers.h
+[; ;./timers.h: 226: extern void Timer1_write_counter(uint16 a_u16init_value_for_timer);
+[v _Timer1_write_counter `(v ~T0 @X0 0 ef1`us ]
+"108 scheduler.c
+[; ;scheduler.c: 108: static EnumScheduler_Error_t Scheduler_Tick_time_calculation(TickTime a_u8tickTme)
+[c E15 0 1 2 3 .. ]
+[n E15 . SCHEDULER_NOT_AVAILABLE_TICK_TIME_ERROR SCHEDULER_TASKS_QUEUE_IS_FULL_ERROR SCHEDULER_ID_IS_NOT_EXIST_ERROR SCHEDULER_NO_ERROR  ]
+"117
+[; ;scheduler.c: 117:         Timer1_config_t.timer_prescaler_t = TIMER1_NO_PRESCALER;
+[c E38 0 1 2 3 .. ]
+[n E38 . TIMER1_NO_PRESCALER TIMER1_PRESCALER_2 TIMER1_PRESCALER_4 TIMER1_PRESCALER_8  ]
+[c E34 0 1 .. ]
+[n E34 . TIMER1_INTERNAL_CLOCK TIMER1_TRANSITION_ON_TCKI_PIN  ]
+[c E44 0 1 2 .. ]
+[n E44 . TIMER1_SYNC_WITH_EXTERNAL_CLOCK TIMER1_NOT_SYNC_WITH_EXTERNAL_CLOCK TIMER1_NO_EXTERNAL_CLOCK  ]
+"145 ./timers.h
+[; ;./timers.h: 145: typedef struct{
+[s S1 `E38 1 `E34 1 `E44 1 ]
+[n S1 . timer_prescaler_t timer_clock_source_t timer_sync_with_external_clock ]
+"155
+[; ;./timers.h: 155: extern StrTimer1_config_t Timer1_config_t;
+[v _Timer1_config_t `S1 ~T0 @X0 0 e ]
+"173
+[; ;./timers.h: 173: extern void Timer1_Initialization(void);
+[v _Timer1_Initialization `(v ~T0 @X0 0 ef ]
+[v F70 `(v ~T0 @X0 0 tf ]
+"166 ./interrupt.h
+[; ;./interrupt.h: 166: extern void Timer1_set_callback_function(void(*a_function_ptr)(void));
+[v _Timer1_set_callback_function `(v ~T0 @X0 0 ef1`*F70 ]
+"40
+[; ;./interrupt.h: 40: extern void Global_interrupt_enable(void);
+[v _Global_interrupt_enable `(v ~T0 @X0 0 ef ]
+"67
+[; ;./interrupt.h: 67: extern void Peripherals_interrupt_enable(void);
+[v _Peripherals_interrupt_enable `(v ~T0 @X0 0 ef ]
+[v F110 `(v ~T0 @X0 0 tf ]
+"186 ./timers.h
+[; ;./timers.h: 186: extern void Timer1_enable(void);
+[v _Timer1_enable `(v ~T0 @X0 0 ef ]
+[v F113 `(v ~T0 @X0 0 tf ]
+[v F115 `(v ~T0 @X0 0 tf ]
+"140 ./interrupt.h
+[; ;./interrupt.h: 140: extern void Timer1_enable_overflow_interrupt(void);
+[v _Timer1_enable_overflow_interrupt `(v ~T0 @X0 0 ef ]
+[v F129 `(v ~T0 @X0 0 tf ]
+"153
+[; ;./interrupt.h: 153: extern void Timer1_disable_overflow_interrupt(void);
+[v _Timer1_disable_overflow_interrupt `(v ~T0 @X0 0 ef ]
+[v F136 `(v ~T0 @X0 0 tf ]
+"45 scheduler.c
+[; ;scheduler.c: 45: volatile static uint16 g_u16_TickTimeCounter = 0;
+[v _g_u16_TickTimeCounter `Vus ~T0 @X0 1 s ]
+[i _g_u16_TickTimeCounter
+-> -> 0 `i `us
+]
+"47
+[; ;scheduler.c: 47: static StructScheduler_Object_t Scheduler_Tasks[10u];
+[v _Scheduler_Tasks `S2 ~T0 @X0 -> 10 `i s ]
+"49
+[; ;scheduler.c: 49: uint32 u32compare_value;
+[v _u32compare_value `ul ~T0 @X0 1 e ]
+"71
+[; ;scheduler.c: 71: static void Scheduler_Core(void)
+[v _Scheduler_Core `(v ~T0 @X0 1 sf ]
+"72
+[; ;scheduler.c: 72: {
+{
+[e :U _Scheduler_Core ]
+[f ]
+"74
+[; ;scheduler.c: 74:  g_u16_TickTimeCounter++;
+[e ++ _g_u16_TickTimeCounter -> -> 1 `i `Vus ]
+"76
+[; ;scheduler.c: 76:     Timer1_write_counter(65535u - u32compare_value);
+[e ( _Timer1_write_counter (1 -> - -> -> 65535 `ui `ul _u32compare_value `us ]
+"78
+[; ;scheduler.c: 78:  for(uint16 Counter = 0 ; Counter < 10u ; Counter++)
+{
+[v _Counter `us ~T0 @X0 1 a ]
+[e = _Counter -> -> 0 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 4  ]
+[e $U 5  ]
+[e :U 4 ]
+"79
+[; ;scheduler.c: 79:  {
+{
+"81
+[; ;scheduler.c: 81:   if((Scheduler_Tasks[Counter].Task_ExecutionTime == g_u16_TickTimeCounter)
+[e $ ! && == -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 1 `ui -> _g_u16_TickTimeCounter `ui != -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 `i -> 0 `i 7  ]
+"83
+[; ;scheduler.c: 83:   {
+{
+"85
+[; ;scheduler.c: 85:    Scheduler_Tasks[Counter].Task_State = READY;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 0 ]
+"87
+[; ;scheduler.c: 87:             Scheduler_Tasks[Counter].Task_ExecutionTime += Scheduler_Tasks[Counter].Task_Periodicity;
+[e =+ . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 1 -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 2 `us ]
+"88
+[; ;scheduler.c: 88:   }
+}
+[e $U 8  ]
+"89
+[; ;scheduler.c: 89:   else
+[e :U 7 ]
+"90
+[; ;scheduler.c: 90:   {
+{
+"92
+[; ;scheduler.c: 92:   }
+}
+[e :U 8 ]
+"93
+[; ;scheduler.c: 93:  }
+}
+[e ++ _Counter -> -> 1 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 4  ]
+[e :U 5 ]
+}
+"94
+[; ;scheduler.c: 94: }
+[e :UE 3 ]
+}
+"108
+[; ;scheduler.c: 108: static EnumScheduler_Error_t Scheduler_Tick_time_calculation(TickTime a_u8tickTme)
+[v _Scheduler_Tick_time_calculation `(E15 ~T0 @X0 1 sf1`uc ]
+"109
+[; ;scheduler.c: 109: {
+{
+[e :U _Scheduler_Tick_time_calculation ]
+"108
+[; ;scheduler.c: 108: static EnumScheduler_Error_t Scheduler_Tick_time_calculation(TickTime a_u8tickTme)
+[v _a_u8tickTme `uc ~T0 @X0 1 r1 ]
+"109
+[; ;scheduler.c: 109: {
+[f ]
+"111
+[; ;scheduler.c: 111:     EnumScheduler_Error_t tick_calculation_t = SCHEDULER_NO_ERROR;
+[v _tick_calculation_t `E15 ~T0 @X0 1 a ]
+[e = _tick_calculation_t . `E15 3 ]
+"113
+[; ;scheduler.c: 113:     u32compare_value = (8000000u / 4000) * a_u8tickTme;
+[e = _u32compare_value * / -> 8000000 `ul -> -> -> 4000 `i `l `ul -> _a_u8tickTme `ul ]
+"115
+[; ;scheduler.c: 115:     if(u32compare_value < 65535u)
+[e $ ! < _u32compare_value -> -> 65535 `ui `ul 10  ]
+"116
+[; ;scheduler.c: 116:     {
+{
+"117
+[; ;scheduler.c: 117:         Timer1_config_t.timer_prescaler_t = TIMER1_NO_PRESCALER;
+[e = . _Timer1_config_t 0 . `E38 0 ]
+"119
+[; ;scheduler.c: 119:         Timer1_Initialization();
+[e ( _Timer1_Initialization ..  ]
+"120
+[; ;scheduler.c: 120:         tick_calculation_t = SCHEDULER_NO_ERROR;
+[e = _tick_calculation_t . `E15 3 ]
+"121
+[; ;scheduler.c: 121:     }
+}
+[e $U 11  ]
+"122
+[; ;scheduler.c: 122:     else if (u32compare_value / 2 < 65535u)
+[e :U 10 ]
+[e $ ! < / _u32compare_value -> -> -> 2 `i `l `ul -> -> 65535 `ui `ul 12  ]
+"123
+[; ;scheduler.c: 123:     {
+{
+"124
+[; ;scheduler.c: 124:         Timer1_config_t.timer_prescaler_t = TIMER1_PRESCALER_2;
+[e = . _Timer1_config_t 0 . `E38 1 ]
+"125
+[; ;scheduler.c: 125:         u32compare_value /= 2;
+[e =/ _u32compare_value -> -> -> 2 `i `l `ul ]
+"127
+[; ;scheduler.c: 127:         Timer1_Initialization();
+[e ( _Timer1_Initialization ..  ]
+"128
+[; ;scheduler.c: 128:         tick_calculation_t = SCHEDULER_NO_ERROR;
+[e = _tick_calculation_t . `E15 3 ]
+"129
+[; ;scheduler.c: 129:     }
+}
+[e $U 13  ]
+"130
+[; ;scheduler.c: 130:     else if (u32compare_value / 4 < 65535u)
+[e :U 12 ]
+[e $ ! < / _u32compare_value -> -> -> 4 `i `l `ul -> -> 65535 `ui `ul 14  ]
+"131
+[; ;scheduler.c: 131:     {
+{
+"132
+[; ;scheduler.c: 132:         Timer1_config_t.timer_prescaler_t = TIMER1_PRESCALER_4;
+[e = . _Timer1_config_t 0 . `E38 2 ]
+"133
+[; ;scheduler.c: 133:         u32compare_value /= 4;
+[e =/ _u32compare_value -> -> -> 4 `i `l `ul ]
+"135
+[; ;scheduler.c: 135:         Timer1_Initialization();
+[e ( _Timer1_Initialization ..  ]
+"136
+[; ;scheduler.c: 136:         tick_calculation_t = SCHEDULER_NO_ERROR;
+[e = _tick_calculation_t . `E15 3 ]
+"137
+[; ;scheduler.c: 137:     }
+}
+[e $U 15  ]
+"138
+[; ;scheduler.c: 138:     else if (u32compare_value / 8 < 65535u)
+[e :U 14 ]
+[e $ ! < / _u32compare_value -> -> -> 8 `i `l `ul -> -> 65535 `ui `ul 16  ]
+"139
+[; ;scheduler.c: 139:     {
+{
+"140
+[; ;scheduler.c: 140:         Timer1_config_t.timer_prescaler_t = TIMER1_PRESCALER_8;
+[e = . _Timer1_config_t 0 . `E38 3 ]
+"141
+[; ;scheduler.c: 141:         u32compare_value /= 8;
+[e =/ _u32compare_value -> -> -> 8 `i `l `ul ]
+"143
+[; ;scheduler.c: 143:         Timer1_Initialization();
+[e ( _Timer1_Initialization ..  ]
+"144
+[; ;scheduler.c: 144:         tick_calculation_t = SCHEDULER_NO_ERROR;
+[e = _tick_calculation_t . `E15 3 ]
+"145
+[; ;scheduler.c: 145:     }
+}
+[e $U 17  ]
+"146
+[; ;scheduler.c: 146:     else
+[e :U 16 ]
+"147
+[; ;scheduler.c: 147:     {
+{
+"148
+[; ;scheduler.c: 148:         tick_calculation_t = SCHEDULER_NOT_AVAILABLE_TICK_TIME_ERROR;
+[e = _tick_calculation_t . `E15 0 ]
+"149
+[; ;scheduler.c: 149:     }
+}
+[e :U 17 ]
+[e :U 15 ]
+[e :U 13 ]
+[e :U 11 ]
+"150
+[; ;scheduler.c: 150:     return tick_calculation_t;
+[e ) _tick_calculation_t ]
+[e $UE 9  ]
+"151
+[; ;scheduler.c: 151: }
+[e :UE 9 ]
+}
+"167
+[; ;scheduler.c: 167: EnumScheduler_Error_t Scheduler_Initialization(TickTime a_u8tickTme)
+[v _Scheduler_Initialization `(E15 ~T0 @X0 1 ef1`uc ]
+"168
+[; ;scheduler.c: 168: {
+{
+[e :U _Scheduler_Initialization ]
+"167
+[; ;scheduler.c: 167: EnumScheduler_Error_t Scheduler_Initialization(TickTime a_u8tickTme)
+[v _a_u8tickTme `uc ~T0 @X0 1 r1 ]
+"168
+[; ;scheduler.c: 168: {
+[f ]
+"170
+[; ;scheduler.c: 170:     EnumScheduler_Error_t initialization_error_t = SCHEDULER_NO_ERROR;
+[v _initialization_error_t `E15 ~T0 @X0 1 a ]
+[e = _initialization_error_t . `E15 3 ]
+"172
+[; ;scheduler.c: 172:     initialization_error_t = Scheduler_Tick_time_calculation(a_u8tickTme);
+[e = _initialization_error_t ( _Scheduler_Tick_time_calculation (1 _a_u8tickTme ]
+"174
+[; ;scheduler.c: 174:     if(initialization_error_t == SCHEDULER_NO_ERROR)
+[e $ ! == -> _initialization_error_t `ui -> . `E15 3 `ui 19  ]
+"175
+[; ;scheduler.c: 175:     {
+{
+"177
+[; ;scheduler.c: 177:         Timer1_set_callback_function(Scheduler_Core);
+[e ( _Timer1_set_callback_function (1 &U _Scheduler_Core ]
+"179
+[; ;scheduler.c: 179:         Global_interrupt_enable();
+[e ( _Global_interrupt_enable ..  ]
+"181
+[; ;scheduler.c: 181:         Peripherals_interrupt_enable();
+[e ( _Peripherals_interrupt_enable ..  ]
+"183
+[; ;scheduler.c: 183:         for(uint16 Counter = 0 ; Counter < 10u ; Counter++)
+{
+[v _Counter `us ~T0 @X0 1 a ]
+[e = _Counter -> -> 0 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 20  ]
+[e $U 21  ]
+[e :U 20 ]
+"184
+[; ;scheduler.c: 184:         {
+{
+"185
+[; ;scheduler.c: 185:             Scheduler_Tasks[Counter].Task_ID = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 -> -> 0 `i `uc ]
+"186
+[; ;scheduler.c: 186:             Scheduler_Tasks[Counter].Task_Periodicity = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 2 -> -> 0 `i `us ]
+"187
+[; ;scheduler.c: 187:             Scheduler_Tasks[Counter].Task_RepeatType = ONCE;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 3 . `E11 0 ]
+"188
+[; ;scheduler.c: 188:             Scheduler_Tasks[Counter].Task_ExecutionTime = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 1 -> -> 0 `i `us ]
+"189
+[; ;scheduler.c: 189:             Scheduler_Tasks[Counter].Task_State = WAITING;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 2 ]
+"190
+[; ;scheduler.c: 190:             Scheduler_Tasks[Counter].Task_Function = (void*)0x00;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 5 -> -> -> 0 `i `*v `*F110 ]
+"191
+[; ;scheduler.c: 191:         }
+}
+[e ++ _Counter -> -> 1 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 20  ]
+[e :U 21 ]
+}
+"193
+[; ;scheduler.c: 193:         Timer1_enable();
+[e ( _Timer1_enable ..  ]
+"194
+[; ;scheduler.c: 194:     }
+}
+[e $U 23  ]
+"195
+[; ;scheduler.c: 195:     else
+[e :U 19 ]
+"196
+[; ;scheduler.c: 196:     {
+{
+"197
+[; ;scheduler.c: 197:         initialization_error_t = SCHEDULER_NOT_AVAILABLE_TICK_TIME_ERROR;
+[e = _initialization_error_t . `E15 0 ]
+"198
+[; ;scheduler.c: 198:     }
+}
+[e :U 23 ]
+"199
+[; ;scheduler.c: 199:     return initialization_error_t;
+[e ) _initialization_error_t ]
+[e $UE 18  ]
+"200
+[; ;scheduler.c: 200: }
+[e :UE 18 ]
+}
+"217
+[; ;scheduler.c: 217: EnumScheduler_Error_t Scheduler_StartFunction(void (*task_function_ptr) (void), uint8 a_u8_task_ID ,
+[v _Scheduler_StartFunction `(E15 ~T0 @X0 1 ef5`*F113`uc`us`us`E11 ]
+"220
+[; ;scheduler.c: 220: {
+{
+[e :U _Scheduler_StartFunction ]
+"217
+[; ;scheduler.c: 217: EnumScheduler_Error_t Scheduler_StartFunction(void (*task_function_ptr) (void), uint8 a_u8_task_ID ,
+[v _task_function_ptr `*F115 ~T0 @X0 1 r1 ]
+[v _a_u8_task_ID `uc ~T0 @X0 1 r2 ]
+"218
+[; ;scheduler.c: 218:   uint16 a_u16_task_periodicity , uint16 a_u16_task_start_time ,
+[v _a_u16_task_periodicity `us ~T0 @X0 1 r3 ]
+[v _a_u16_task_start_time `us ~T0 @X0 1 r4 ]
+"219
+[; ;scheduler.c: 219:         EnumScheduler_RepeatedFunction_t Enum_Task_RepeatType)
+[v _Enum_Task_RepeatType `E11 ~T0 @X0 1 r5 ]
+"220
+[; ;scheduler.c: 220: {
+[f ]
+"222
+[; ;scheduler.c: 222:     EnumScheduler_Error_t starting_task_error = SCHEDULER_NO_ERROR;
+[v _starting_task_error `E15 ~T0 @X0 1 a ]
+[e = _starting_task_error . `E15 3 ]
+"224
+[; ;scheduler.c: 224:  Timer1_enable_overflow_interrupt();
+[e ( _Timer1_enable_overflow_interrupt ..  ]
+"226
+[; ;scheduler.c: 226:  for(uint16 Counter = 0 ; Counter < 10u ; Counter++)
+{
+[v _Counter `us ~T0 @X0 1 a ]
+[e = _Counter -> -> 0 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 25  ]
+[e $U 26  ]
+[e :U 25 ]
+"227
+[; ;scheduler.c: 227:  {
+{
+"228
+[; ;scheduler.c: 228:   if(Scheduler_Tasks[Counter].Task_ID == 0)
+[e $ ! == -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 `i -> 0 `i 28  ]
+"229
+[; ;scheduler.c: 229:   {
+{
+"230
+[; ;scheduler.c: 230:    Scheduler_Tasks[Counter].Task_ID = a_u8_task_ID;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 _a_u8_task_ID ]
+"231
+[; ;scheduler.c: 231:    Scheduler_Tasks[Counter].Task_Periodicity = a_u16_task_periodicity;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 2 _a_u16_task_periodicity ]
+"232
+[; ;scheduler.c: 232:    Scheduler_Tasks[Counter].Task_RepeatType = Enum_Task_RepeatType;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 3 _Enum_Task_RepeatType ]
+"233
+[; ;scheduler.c: 233:    Scheduler_Tasks[Counter].Task_ExecutionTime = a_u16_task_start_time + g_u16_TickTimeCounter + 1;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 1 -> + + -> _a_u16_task_start_time `ui -> _g_u16_TickTimeCounter `ui -> -> 1 `i `ui `us ]
+"234
+[; ;scheduler.c: 234:    Scheduler_Tasks[Counter].Task_State = WAITING;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 2 ]
+"235
+[; ;scheduler.c: 235:    Scheduler_Tasks[Counter].Task_Function = task_function_ptr;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 5 _task_function_ptr ]
+"236
+[; ;scheduler.c: 236:             starting_task_error = SCHEDULER_NO_ERROR;
+[e = _starting_task_error . `E15 3 ]
+"237
+[; ;scheduler.c: 237:    break;
+[e $U 26  ]
+"238
+[; ;scheduler.c: 238:   }
+}
+[e $U 29  ]
+"239
+[; ;scheduler.c: 239:   else
+[e :U 28 ]
+"240
+[; ;scheduler.c: 240:   {
+{
+"241
+[; ;scheduler.c: 241:    starting_task_error = SCHEDULER_TASKS_QUEUE_IS_FULL_ERROR;
+[e = _starting_task_error . `E15 1 ]
+"242
+[; ;scheduler.c: 242:   }
+}
+[e :U 29 ]
+"243
+[; ;scheduler.c: 243:  }
+}
+[e ++ _Counter -> -> 1 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 25  ]
+[e :U 26 ]
+}
+"244
+[; ;scheduler.c: 244:     return starting_task_error;
+[e ) _starting_task_error ]
+[e $UE 24  ]
+"245
+[; ;scheduler.c: 245: }
+[e :UE 24 ]
+}
+"258
+[; ;scheduler.c: 258: EnumScheduler_Error_t Scheduler_StopFunction(uint8 a_u8_task_ID)
+[v _Scheduler_StopFunction `(E15 ~T0 @X0 1 ef1`uc ]
+"259
+[; ;scheduler.c: 259: {
+{
+[e :U _Scheduler_StopFunction ]
+"258
+[; ;scheduler.c: 258: EnumScheduler_Error_t Scheduler_StopFunction(uint8 a_u8_task_ID)
+[v _a_u8_task_ID `uc ~T0 @X0 1 r1 ]
+"259
+[; ;scheduler.c: 259: {
+[f ]
+"261
+[; ;scheduler.c: 261:     EnumScheduler_Error_t stoping_task_error = SCHEDULER_NO_ERROR;
+[v _stoping_task_error `E15 ~T0 @X0 1 a ]
+[e = _stoping_task_error . `E15 3 ]
+"263
+[; ;scheduler.c: 263:  for(uint16 Counter=0;Counter<10u;Counter++)
+{
+[v _Counter `us ~T0 @X0 1 a ]
+[e = _Counter -> -> 0 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 31  ]
+[e $U 32  ]
+[e :U 31 ]
+"264
+[; ;scheduler.c: 264:  {
+{
+"265
+[; ;scheduler.c: 265:   if(Scheduler_Tasks[Counter].Task_ID == a_u8_task_ID)
+[e $ ! == -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 `i -> _a_u8_task_ID `i 34  ]
+"266
+[; ;scheduler.c: 266:   {
+{
+"267
+[; ;scheduler.c: 267:    Scheduler_Tasks[Counter].Task_ID = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 -> -> 0 `i `uc ]
+"268
+[; ;scheduler.c: 268:    Scheduler_Tasks[Counter].Task_Periodicity = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 2 -> -> 0 `i `us ]
+"269
+[; ;scheduler.c: 269:    Scheduler_Tasks[Counter].Task_RepeatType = ONCE;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 3 . `E11 0 ]
+"270
+[; ;scheduler.c: 270:    Scheduler_Tasks[Counter].Task_ExecutionTime = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 1 -> -> 0 `i `us ]
+"271
+[; ;scheduler.c: 271:    Scheduler_Tasks[Counter].Task_State = WAITING;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 2 ]
+"272
+[; ;scheduler.c: 272:    Scheduler_Tasks[Counter].Task_Function = (void*)0x00;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 5 -> -> -> 0 `i `*v `*F129 ]
+"273
+[; ;scheduler.c: 273:             stoping_task_error = SCHEDULER_NO_ERROR;
+[e = _stoping_task_error . `E15 3 ]
+"274
+[; ;scheduler.c: 274:    break;
+[e $U 32  ]
+"275
+[; ;scheduler.c: 275:   }
+}
+[e $U 35  ]
+"276
+[; ;scheduler.c: 276:   else
+[e :U 34 ]
+"277
+[; ;scheduler.c: 277:   {
+{
+"278
+[; ;scheduler.c: 278:    stoping_task_error = SCHEDULER_ID_IS_NOT_EXIST_ERROR;
+[e = _stoping_task_error . `E15 2 ]
+"279
+[; ;scheduler.c: 279:   }
+}
+[e :U 35 ]
+"280
+[; ;scheduler.c: 280:  }
+}
+[e ++ _Counter -> -> 1 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 31  ]
+[e :U 32 ]
+}
+"282
+[; ;scheduler.c: 282:  uint16 Counter = 0 ;
+[v _Counter `us ~T0 @X0 1 a ]
+[e = _Counter -> -> 0 `i `us ]
+"284
+[; ;scheduler.c: 284:  for(; Counter < 10u ; Counter++)
+{
+[e $ < -> _Counter `ui -> 10 `ui 36  ]
+[e $U 37  ]
+[e :U 36 ]
+"285
+[; ;scheduler.c: 285:  {
+{
+"286
+[; ;scheduler.c: 286:   if(Scheduler_Tasks[Counter].Task_ID != 0)
+[e $ ! != -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 `i -> 0 `i 39  ]
+"287
+[; ;scheduler.c: 287:   {
+{
+"288
+[; ;scheduler.c: 288:    break;
+[e $U 37  ]
+"289
+[; ;scheduler.c: 289:   }
+}
+[e $U 40  ]
+"290
+[; ;scheduler.c: 290:   else
+[e :U 39 ]
+"291
+[; ;scheduler.c: 291:   {
+{
+"293
+[; ;scheduler.c: 293:   }
+}
+[e :U 40 ]
+"294
+[; ;scheduler.c: 294:  }
+}
+[e ++ _Counter -> -> 1 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 36  ]
+[e :U 37 ]
+}
+"296
+[; ;scheduler.c: 296:  if(Counter == 10u)
+[e $ ! == -> _Counter `ui -> 10 `ui 41  ]
+"297
+[; ;scheduler.c: 297:  {
+{
+"299
+[; ;scheduler.c: 299:   Timer1_disable_overflow_interrupt();
+[e ( _Timer1_disable_overflow_interrupt ..  ]
+"300
+[; ;scheduler.c: 300:  }
+}
+[e $U 42  ]
+"301
+[; ;scheduler.c: 301:  else
+[e :U 41 ]
+"302
+[; ;scheduler.c: 302:  {
+{
+"304
+[; ;scheduler.c: 304:  }
+}
+[e :U 42 ]
+"305
+[; ;scheduler.c: 305:     return stoping_task_error;
+[e ) _stoping_task_error ]
+[e $UE 30  ]
+"306
+[; ;scheduler.c: 306: }
+[e :UE 30 ]
+}
+"319
+[; ;scheduler.c: 319: void Scheduler_Dispatcher(void)
+[v _Scheduler_Dispatcher `(v ~T0 @X0 1 ef ]
+"320
+[; ;scheduler.c: 320: {
+{
+[e :U _Scheduler_Dispatcher ]
+[f ]
+"322
+[; ;scheduler.c: 322:  for(uint16 Counter = 0 ; Counter < 10u ; Counter++)
+{
+[v _Counter `us ~T0 @X0 1 a ]
+[e = _Counter -> -> 0 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 44  ]
+[e $U 45  ]
+[e :U 44 ]
+"323
+[; ;scheduler.c: 323:  {
+{
+"325
+[; ;scheduler.c: 325:   if(Scheduler_Tasks[Counter].Task_State == READY)
+[e $ ! == -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 `ui -> . `E82 0 `ui 47  ]
+"326
+[; ;scheduler.c: 326:   {
+{
+"327
+[; ;scheduler.c: 327:    Scheduler_Tasks[Counter].Task_State = RUNNING;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 1 ]
+"328
+[; ;scheduler.c: 328:    Scheduler_Tasks[Counter].Task_Function();
+[e ( *U . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 5 ..  ]
+"329
+[; ;scheduler.c: 329:    Scheduler_Tasks[Counter].Task_State = WAITING;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 2 ]
+"331
+[; ;scheduler.c: 331:             if(Scheduler_Tasks[Counter].Task_RepeatType == ONCE)
+[e $ ! == -> . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 3 `ui -> . `E11 0 `ui 48  ]
+"332
+[; ;scheduler.c: 332:             {
+{
+"334
+[; ;scheduler.c: 334:                 Scheduler_Tasks[Counter].Task_ID = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 0 -> -> 0 `i `uc ]
+"335
+[; ;scheduler.c: 335:                 Scheduler_Tasks[Counter].Task_Periodicity = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 2 -> -> 0 `i `us ]
+"336
+[; ;scheduler.c: 336:                 Scheduler_Tasks[Counter].Task_RepeatType = ONCE;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 3 . `E11 0 ]
+"337
+[; ;scheduler.c: 337:                 Scheduler_Tasks[Counter].Task_ExecutionTime = 0;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 1 -> -> 0 `i `us ]
+"338
+[; ;scheduler.c: 338:                 Scheduler_Tasks[Counter].Task_State = WAITING;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 4 . `E82 2 ]
+"339
+[; ;scheduler.c: 339:                 Scheduler_Tasks[Counter].Task_Function = (void*)0x00;
+[e = . *U + &U _Scheduler_Tasks * -> _Counter `ux -> -> # *U &U _Scheduler_Tasks `ui `ux 5 -> -> -> 0 `i `*v `*F136 ]
+"340
+[; ;scheduler.c: 340:             }
+}
+[e $U 49  ]
+"341
+[; ;scheduler.c: 341:             else
+[e :U 48 ]
+"342
+[; ;scheduler.c: 342:             {
+{
+"344
+[; ;scheduler.c: 344:             }
+}
+[e :U 49 ]
+"345
+[; ;scheduler.c: 345:   }
+}
+[e $U 50  ]
+"346
+[; ;scheduler.c: 346:   else
+[e :U 47 ]
+"347
+[; ;scheduler.c: 347:   {
+{
+"349
+[; ;scheduler.c: 349:   }
+}
+[e :U 50 ]
+"350
+[; ;scheduler.c: 350:  }
+}
+[e ++ _Counter -> -> 1 `i `us ]
+[e $ < -> _Counter `ui -> 10 `ui 44  ]
+[e :U 45 ]
+}
+"351
+[; ;scheduler.c: 351: }
+[e :UE 43 ]
+}
